@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace Database.Models
 {
-    public class Tipos
+    public class Region
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Color { get; set; }
+
+        //Navigation Propery's
+        public ICollection<Pokemon> Pokemon { get; set; }
     }
 }
