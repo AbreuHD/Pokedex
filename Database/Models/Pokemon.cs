@@ -15,6 +15,7 @@ namespace Database.Models
 
         //Fk's
         public int TipoId { get; set; }
+        public int TipoIdSec { get; set; }
         public int RegionId { get; set; }
 
         //Navigation Property's

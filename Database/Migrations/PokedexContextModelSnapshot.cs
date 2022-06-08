@@ -21,7 +21,9 @@ namespace Database.Migrations
             modelBuilder.Entity("Database.Models.Pokemon", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ImgUrl")
                         .IsRequired()
@@ -37,9 +39,14 @@ namespace Database.Migrations
                     b.Property<int>("TipoId")
                         .HasColumnType("int");
 
+                    b.Property<int>("TipoIdSec")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RegionId");
+
+                    b.HasIndex("TipoIdSec");
 
                     b.ToTable("Pokemons");
                 });
@@ -84,15 +91,15 @@ namespace Database.Migrations
 
             modelBuilder.Entity("Database.Models.Pokemon", b =>
                 {
-                    b.HasOne("Database.Models.Tipo", "Tipo")
-                        .WithMany("Pokemon")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Database.Models.Region", "Region")
                         .WithMany("Pokemon")
                         .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Database.Models.Tipo", "Tipo")
+                        .WithMany("Pokemon")
+                        .HasForeignKey("TipoIdSec")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

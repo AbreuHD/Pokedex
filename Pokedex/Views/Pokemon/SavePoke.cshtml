@@ -1,0 +1,55 @@
+﻿@model Application.ViewModels.PokemonViewModel
+@{
+    bool mode = Model.Id == 0 ? false : true;
+    ViewData["Title"] = "Fomulario Pokemon";
+}
+
+<div class="container-fluid">
+    <div class="col-sm-6 offset-sm-3">
+        <div class="card">
+            <div class="card-header text-center">
+               @(mode == false ? "Editar" : "Crear") Pokemon
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="mb-3">
+                      <label asp-for="Name" class="form-label">Nombre</label>
+                      <input type="text" asp-for="Name" class="form-control" id="Nombre" placeholder="Charmander">
+                    </div>
+                    <div class="mb-3">
+                      <label asp-for="ImgUrl" class="form-label">Link de la imagen</label>
+                      <input type="text" asp-for="ImgUrl" class="form-control" id="LinkUrl" placeholder="https//imgurl.com/charmander.jpg">
+                    </div>
+
+                    <div class="mb-3">
+                      <label asp-for="RegionId" class="form-label">Region</label>
+                      <select asp-for="RegionId" class="form-select">
+                        <option value="1">Kanto</option>
+                      </select>
+                    </div>
+                
+                    <div class="mb-3">
+                      <label asp-for="TipoId" class="form-label">Tipo Principal</label>
+                      <select asp-for="TipoId" class="form-select">
+                        <option value="1">Fuego</option>
+                      </select>
+                    </div>                
+                
+                    <div asp-for="TipoIdSec" class="mb-3">
+                      <label asp-for="TipoIdSec"class="form-label">Tipo Secundario</label>
+                      <select class="form-select">
+                        <option value="1">Agua</option>
+                      </select>
+                    </div>
+
+                    <input type="hidden" asp-for="Id"/>
+                
+                    <button type="submit" class="btn btn-success position-absolute top-100 start-50 translate-middle btn-lg">
+                        <a>@(mode == false ? "Editar" : "Crear")</a>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br />
+</div>

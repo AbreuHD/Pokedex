@@ -38,7 +38,10 @@ namespace Database
                 .WithOne(Pokemon => Pokemon.Region).HasForeignKey(Pokemon => Pokemon.RegionId).OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Tipo>().HasMany<Pokemon>(Tipo => Tipo.Pokemon)
-                .WithOne(Pokemon => Pokemon.Tipo).HasForeignKey(Pokemon => Pokemon.Id).OnDelete(DeleteBehavior.Cascade);
+                .WithOne(Pokemon => Pokemon.Tipo).HasForeignKey(Pokemon => Pokemon.TipoId).OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Tipo>().HasMany<Pokemon>(Tipo => Tipo.Pokemon)
+                .WithOne(Pokemon => Pokemon.Tipo).HasForeignKey(Pokemon => Pokemon.TipoIdSec).OnDelete(DeleteBehavior.Cascade);
             #endregion
 
             #region "Property Configurations"
