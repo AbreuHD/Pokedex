@@ -40,7 +40,7 @@ namespace Application.Repository
             return await _dbContext.Set<Pokemon>().ToListAsync();
         }
 
-        public async Task<Pokemon> GetByAsync(int Id)
+        public async Task<Pokemon> GetByIdAsync(int Id)
         {
             return await _dbContext.Set<Pokemon>().FindAsync(Id);
         }

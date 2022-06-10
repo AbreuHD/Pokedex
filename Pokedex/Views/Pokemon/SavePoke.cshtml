@@ -11,10 +11,11 @@
                @(mode == false ? "Editar" : "Crear") Pokemon
             </div>
             <div class="card-body">
-                <form method="post">
+                <form method="post" asp-controller="Pokemon" asp-action="@(mode ? "Edit" : "Create")">
                     <div class="mb-3">
                       <label asp-for="Name" class="form-label">Nombre</label>
                       <input type="text" asp-for="Name" class="form-control" id="Nombre" placeholder="Charmander">
+                      <span asp-validation-for="Name"></span>
                     </div>
                     <div class="mb-3">
                       <label asp-for="ImgUrl" class="form-label">Link de la imagen</label>
@@ -35,17 +36,17 @@
                       </select>
                     </div>                
                 
-                    <div asp-for="TipoIdSec" class="mb-3">
-                      <label asp-for="TipoIdSec"class="form-label">Tipo Secundario</label>
-                      <select class="form-select">
-                        <option value="1">Agua</option>
+                    <div class="mb-3">
+                      <label asp-for="TipoIdSec" class="form-label">Tipo Secundario</label>
+                      <select asp-for="TipoIdSec" class="form-select">
+                        <option value="1">Fuego</option>
                       </select>
-                    </div>
+                    </div>        
 
                     <input type="hidden" asp-for="Id"/>
                 
-                    <button type="submit" class="btn btn-success position-absolute top-100 start-50 translate-middle btn-lg">
-                        <a>@(mode == false ? "Editar" : "Crear")</a>
+                    <button type="submit" asp-controller="Pokemon" asp-action="@(mode ? "Edit" : "Create")" class="btn btn-success position-absolute top-100 start-50 translate-middle btn-lg">
+                       @(mode ? "Editar" : "Create")
                     </button>
                 </form>
             </div>
