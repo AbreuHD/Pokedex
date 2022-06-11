@@ -1,7 +1,8 @@
-﻿@model Application.ViewModels.PokemonViewModel
+﻿@model Application.ViewModels.TipoViewModel;
 @{
-    ViewData["Title"] = "Eliminar Pokemon";
+    ViewData["Title"] = "Eliminar Tipo";
 }
+
 
 <div class="row">
     <div class="col-6 offset-3">
@@ -10,14 +11,16 @@
                 <h4>Estas Seguro que desea eliminar el Pokemon?</h4>
             </div>
             <div class="card-body">
-                <form method="post" asp-controller="Pokemon" asp-action="DeletePost">
+                <form method="post" asp-controller="Tipo" asp-action="DeletePost">
                     <input type= "hidden" asp-for="Id"/>
                     <button type="submit" class="btn btn-danger">Eliminar</button>
-                    <a asp-controller="Pokemon" asp-action="PokemonForm" class="btn btn-warning">Cancelar</a>
+                    <a asp-controller="Tipo" asp-action="TipoForm" class="btn btn-warning">Cancelar</a>
                 </form>
             </div>
         </div>
 
     </div>
 </div>
+
+
 

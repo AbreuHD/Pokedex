@@ -4,15 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Database.Models
+namespace Application.ViewModels
 {
-    public class Tipo
+    public class TipoViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Color { get; set; }
-
-        public ICollection<Pokemon> Pokemon { get; set; }
-
     }
 }
