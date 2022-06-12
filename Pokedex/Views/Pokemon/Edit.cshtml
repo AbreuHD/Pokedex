@@ -7,10 +7,10 @@
     <div class="col-sm-6 offset-sm-3">
         <div class="card">
             <div class="card-header text-center">
-               Crear Pokemon
+               Editar Pokemon
             </div>
             <div class="card-body">
-                <form method="post" asp-controller="Pokemon" asp-action="SavePoke">
+                <form method="post" asp-controller="Pokemon" asp-action="Edit">
                     <div class="mb-3">
                       <label asp-for="Name" class="form-label">Nombre</label>
                       <input type="text" asp-for="Name" class="form-control" id="Nombre" placeholder="Charmander">
@@ -47,8 +47,7 @@
                     <div class="mb-3">
                       <label asp-for="TipoIdSec" class="form-label">Tipo Secundario</label>
                       <select asp-for="TipoIdSec" class="form-select">
-                            <option selected>No Tiene</option>
-                          @foreach(Application.ViewModels.TipoViewModel tipo in ViewBag.Tipo)
+                        @foreach(Application.ViewModels.TipoViewModel tipo in ViewBag.Tipo)
                         {
                             <option value="@tipo.Id">@tipo.Name</option>
                         }
@@ -57,8 +56,8 @@
 
                     <input type="hidden" asp-for="Id"/>
                 
-                    <button type="submit" asp-controller="Pokemon" asp-action="SavePoke" class="btn btn-success position-absolute top-100 start-50 translate-middle btn-lg">
-                       Crear
+                    <button type="submit" asp-controller="Pokemon" asp-action="Edit" class="btn btn-success position-absolute top-100 start-50 translate-middle btn-lg">
+                       Editar
                     </button>
                 </form>
             </div>

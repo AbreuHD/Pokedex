@@ -13,9 +13,13 @@ namespace Application.Services
     public class PokemonService
     {
         private readonly PokemonRepository _pokemonRepository;
+        private readonly TipoRepository _tipoRepository;
+        private readonly RegionRepository _regionRepository;
         public PokemonService(PokedexContext dbContext)
         {
-            _pokemonRepository = new (dbContext);
+            _pokemonRepository = new(dbContext);
+            _tipoRepository = new(dbContext);
+            _regionRepository = new(dbContext);
         }
 
         public async Task Add(PokemonViewModel vm)
@@ -77,5 +81,41 @@ namespace Application.Services
                 TipoIdSec = pokemon.TipoIdSec
             }).ToList();
         }
+        public async Task<AllViewModel> GetAll()
+        {
+            var allPoke = await _pokemonRepository.GetAllAsync();
+            var allTipo = await _tipoRepository.GetAllTiposAsync();
+            var allRegion = await _regionRepository.GetAllRegionAsync();
+            AllViewModel vm = new();
+
+            vm.Poke = allPoke.Select(pokemon => new PokemonViewModel
+            {
+                Id = pokemon.Id,
+                Name = pokemon.Name,
+                ImgUrl = pokemon.ImgUrl,
+                RegionId = pokemon.RegionId,
+                TipoId = pokemon.TipoId,
+                TipoIdSec = pokemon.TipoIdSec
+            }).ToList();
+
+            vm.Region = allRegion.Select(region => new RegionViewModel
+            {
+                Id = region.Id,
+                Name = region.Name,
+                Color = region.Color
+            }).ToList();
+
+
+            vm.Tipo = allTipo.Select(tipo => new TipoViewModel
+            {
+                Id = tipo.Id,
+                Name = tipo.Name,
+                Color = tipo.Color
+            }).ToList();
+
+            return vm;
+
+        }
+
     }
 }

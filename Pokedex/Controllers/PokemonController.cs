@@ -10,41 +10,55 @@ namespace Pokedex.Controllers
     {
 
         private readonly PokemonService _pokemonService;
+        private readonly TipoService _tipoService;
+        private readonly RegionService _regionService;
+
+
 
         public PokemonController(PokedexContext dbContext)
         {
             _pokemonService = new(dbContext);
+            _tipoService = new(dbContext);
+            _regionService = new(dbContext);
+
         }
 
-        public IActionResult SavePoke()
+        /*public IActionResult SavePoke()
         {
             return View(new PokemonViewModel());
-        }
+        }*/
 
         public async Task<IActionResult> PokemonForm()
         {
-            return View(await _pokemonService.GetAllViewModel());
+            return View(await _pokemonService.GetAll());
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> SavePoke()
         {
-            return View("SavePoke", new PokemonViewModel());
+            ViewBag.Tipo = await _tipoService.GetTiposvm();
+            ViewBag.Region = await _regionService.GetRegionvm();
+            return View(new PokemonViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(PokemonViewModel vm)
+        public async Task<IActionResult> SavePoke(PokemonViewModel vm)
         {
             if (!ModelState.IsValid)
-            {
-                return View("SavePoke", vm); 
+            { 
+                ViewBag.Tipo = await _tipoService.GetTiposvm();
+                ViewBag.Region = await _regionService.GetRegionvm();
+                return View(vm); 
             }
+
             await _pokemonService.Add(vm);
             return RedirectToRoute(new { controller = "Pokemon", Action = "PokemonForm" });
         }
 
         public async Task<IActionResult> Edit(int Id)
         {
-            return View("SavePoke", await _pokemonService.GetByIdPokemonViewModel(Id));
+            ViewBag.Tipo = await _tipoService.GetTiposvm();
+            ViewBag.Region = await _regionService.GetRegionvm();
+            return View(await _pokemonService.GetByIdPokemonViewModel(Id));
         }
 
         [HttpPost]
@@ -52,7 +66,9 @@ namespace Pokedex.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("SavePoke", vm);
+                ViewBag.Tipo = await _tipoService.GetTiposvm();
+                ViewBag.Region = await _regionService.GetRegionvm();
+                return View( vm);
             }
             await _pokemonService.Edit(vm);
             return RedirectToRoute(new { controller = "Pokemon", Action = "PokemonForm" });

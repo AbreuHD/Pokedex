@@ -1,75 +1,73 @@
-﻿@model List<Application.ViewModels.PokemonViewModel>
+﻿@model Application.ViewModels.AllViewModel
 @{
         ViewData["Title"] = "Pokemons";
 }
 
 <div class="container">
-    <div class="row">
-        <a asp-controller="Pokemon" asp-action="SavePoke" class="btn btn-outline-success col-12 col-md-2 offset-md-9">Crear</a>
-    </div>
-    <br />
+    @if(Model.Region.Count == 0 || Model.Tipo.Count == 0){
+        <h1>@(Model.Region.Count == 0 ? "No Hay Regiones":"")</h1>
+        <h1>@(Model.Tipo.Count == 0 ? "No Hay Tipos":"")</h1>
+    }
+    else{
+
     
-    <div class="card text-center">
-      <div class="card-body">
-
-        <p>
-            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRegion" aria-expanded="false" aria-controls="collapseRegion">
-                Filtrar por Region
-            </button>
-            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTipo" aria-expanded="false" aria-controls="collapseTipo">
-                Filtrar por Tipo
-            </button>
-        </p>
-
-
-        <div class="collapse" id="collapseRegion">
-            <div class="card card-body">
-                Vamoh a calmarno.
-            </div>
+        <div class="row">
+            <a asp-controller="Pokemon" asp-action="SavePoke" class="btn btn-outline-success col-12 col-md-2 offset-md-9">Crear</a>
         </div>
         <br />
-        <div class="collapse" id="collapseTipo">
-            <div class="card card-body">
-                vamoh a calentalno.
-            </div>
-        </div>
-
-      </div>
-    </div>
-
-    <br />
-
-
-
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        @if(Model == null || Model.Count == 0)
-        {
-            <h2>No Hay Pokemosn</h2>
-        }
-        else
-        {
-            @foreach(Application.ViewModels.PokemonViewModel item in Model)
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            @if(Model == null || Model.Poke.Count == 0)
             {
-                <div class="col-md-4">
-                  <div class="card shadow-sm">
-                    <img src="@item.ImgUrl" class="card-img-top" alt="@item.Name imagen" height="225">
-                    <div class="card-body">
-                      <p class="card-text"><h2>@item.Name</h2>
-                          <br/>
-                          Tipo = @item.TipoId
-                          Tipo = @item.TipoIdSec
-                          Region = @item.RegionId
-                      </p>
-                      <div class="d-flex justify-content-end">
-                        <div class="btn-group">
-                          <a type="button" asp-controller="Pokemon" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-sm btn-warning">Editar</a>
-                          <a type="button" asp-controller="Pokemon" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-sm btn-danger">Eliminar</a>
+                <h2>No Hay Pokemons</h2>
+            }
+            else
+            {
+                @foreach(Application.ViewModels.PokemonViewModel item in Model.Poke)
+                {
+                    <div class="col-md-4">
+                      <div class="card shadow-sm">
+                        <img src="@item.ImgUrl" class="card-img-top" alt="@item.Name imagen" height="225">
+                        <div class="card-body">
+                          <p class="card-text"><h2>@item.Name</h2>
+                              <br/>
+
+                              @foreach(Application.ViewModels.TipoViewModel tipo in Model.Tipo)
+                              {     
+                                    if(tipo.Id == item.TipoId)
+                                    {
+                                        <h5>Tipo = @tipo.Name</h5>
+                                        break;
+                                    }
+                              }
+                              @foreach(Application.ViewModels.TipoViewModel tipo in Model.Tipo)
+                              {     
+                                    if(tipo.Id == item.TipoIdSec)
+                                    {
+                                        <h5>Tipo Secundario = @tipo.Name</h5>
+                                        break;
+                                    }
+                              }
+                              @foreach(Application.ViewModels.RegionViewModel region in Model.Region)
+                              {
+                                    if(region.Id == item.RegionId)
+                                    {   
+                                        <h5>Region = @region.Name</h5>
+                                        break;
+                                    }
+                              }
+
+                          </p>
+                          <div class="d-flex justify-content-end">
+                            <div class="btn-group">
+                              <a type="button" asp-controller="Pokemon" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-sm btn-warning">Editar</a>
+                              <a type="button" asp-controller="Pokemon" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-sm btn-danger">Eliminar</a>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>    
+                    </div>    
+                }
             }
-        }
-      </div>
-    </div>
+        </div>
+    }
+</div>

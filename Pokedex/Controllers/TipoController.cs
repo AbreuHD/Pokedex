@@ -28,6 +28,10 @@ namespace Pokedex.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(TipoViewModel vm)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("SaveTipo", vm);
+            }
             await _tipoService.Add(vm);
             return RedirectToRoute(new { controller = "Tipo", Action = "TipoForm" });
         }

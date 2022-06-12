@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.ViewModels
 {
-    public class TipoViewModel
+    public class RegionViewModel
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "Debes Colocar el nombre de la region")]
